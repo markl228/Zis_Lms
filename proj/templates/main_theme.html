@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #007bff;
+            padding: 0px 20px 0px;
+            margin: 0px 0px 10px;
+            text-align: center;
+            width: 100%;
+            color: white;
+        }
+        h1 {
+            color: white;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .topic {
+            background-color: #e7f3fe;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .topic:hover {
+            background-color: #d1e7ff;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        button {
+            background-color: #e7f3fe;
+            margin-top: 10px;
+            text-align: left;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #d1e7ff;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор Тем - Личный Кабинет Ученика</title>
+</head>
+<body>
+
+<header>
+    <h1>Личный Кабинет Ученика</h1>
+</header>
+
+<div class="container">
+    <h2>Выберите тему для изучения</h2>
+
+    <form action="/task/1" enctype="multipart/form-data">
+        <button type="submit"><h3>Основы программирования</h3>
+            <p>Изучите базовые концепции программирования, включая переменные, циклы и функции.</p>
+        </button>
+    </form>
+
+    <form action="/task/2" enctype="multipart/form-data">
+        <button type="submit"><h3>Алгебра</h3>
+        <p>Погрузитесь в мир алгебры, решая уравнения и изучая функции.</p>
+        </button>
+    </form>
+
+    <form action="/task/3" enctype="multipart/form-data">
+        <button type="submit"><h3>История искусств</h3>
+        <p>Узнайте о великих художниках и их произведениях через века.</p>
+        </button>
+    </form>
+
+    <div class="topic" onclick="window.location.href='topic4.html'">
+        <h3>Физика</h3>
+        <p>Изучите основные законы физики и их применение в реальной жизни.</p>
+    </div>
+
+    <div class="topic" onclick="window.location.href='topic5.html'">
+        <h3>Биология</h3>
+        <p>Откройте для себя удивительный мир живых организмов и их экосистем.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2023 Learning Management System. Все права защищены.</p>
+</footer>
+
+</body>
+</html>
