@@ -11,7 +11,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    return render_template('task1.html', content=None)
+    return render_template('main_theme.html', content=None)
 
 
 @app.route('/task/<num_task>')

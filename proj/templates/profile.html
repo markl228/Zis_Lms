@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет учителя</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Вертикальное направление для заголовка и контейнера */
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 0px 20px 0px;
+            margin: 0px 0px 10px;
+            text-align: center;
+            width: 100%;
+        }
+        .main {
+            display: flex; /* Горизонтальное направление для nav и container */
+            flex-grow: 1; /* Позволяет контейнеру занимать оставшееся пространство */
+        }
+        nav {
+            width: 200px;
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #e7f3fe;
+        }
+        .container {
+            flex-grow: 1; /* Позволяет контейнеру занимать оставшееся пространство */
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-left: 20px; /* Отступ слева от nav */
+        }
+        .profile {
+            margin-bottom: 20px;
+        }
+        .courses {
+            list-style-type: none;
+            padding: 0;
+        }
+        .courses li {
+            background-color: #e7f3fe;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Личный кабинет учителя</h1>
+</header>
+
+<div class="main">
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#">Курсы</a>
+        <a href="#">Студенты</a>
+        <a href="#">Задания</a>
+        <a href="#">Настройки</a>
+    </nav>
+
+    <div class="container">
+        <div class="profile">
+            <h2>Добро пожаловать, [Имя Учителя]</h2>
+            <p>Email: [email@example.com]</p>
+            <p>Специальность: [Предмет]</p>
+        </div>
+
+        <h3>Ваши курсы:</h3>
+        <ul class="courses">
+            <li>Курс 1: Основы программирования</li>
+            <li>Курс 2: Алгебра</li>
+            <li>Курс 3: История искусств</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
