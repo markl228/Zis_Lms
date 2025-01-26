@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import subprocess
 import os
 
@@ -37,6 +37,30 @@ def upload_file(num_task):
     return render_template(f'task{num_task}.html', content=content)
 
 
+@app.route('/submit_code/<num_task>', methods=['POST'])
+def submit_code(num_task):
+    try:
+        code = request.json.get('code')
+        if not code:
+            return jsonify({'error': 'No code provided'}), 400
+
+        # Создаем временный файл с кодом
+        temp_file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'temp_solution.py')
+        with open(temp_file_path, 'w', encoding='utf-8') as f:
+            f.write(code)
+
+        # Обрабатываем код через существующую функцию
+        content = process_file(temp_file_path, num_task)
+
+        # Удаляем временный файл
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
+        return jsonify({'content': content})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 def process_file(file_path, num_task):
     current_file = os.path.realpath(__file__)
     testcase_directory = os.path.dirname(current_file) + f'\\TestCases\\test{num_task}'
@@ -71,7 +95,6 @@ def process_file(file_path, num_task):
     else:
         a = content
         content = f"После прохождения тест-кейса №{a}, была обнаружена ошибка"
-
     return content
 
 
