@@ -19,6 +19,10 @@
             text-align: center;
             width: 100%;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
         }
         h1 {
             color: white;
@@ -65,6 +69,20 @@
         button:hover {
             background-color: #d1e7ff;
         }
+        .profile-link {
+            margin-right: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-link:hover {
+            background-color: white;
+            color: #007bff;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выбор Тем - Личный Кабинет Ученика</title>
@@ -73,6 +91,7 @@
 
 <header>
     <h1>Личный Кабинет Ученика</h1>
+    <a href="/profile" class="profile-link">Личный кабинет</a>
 </header>
 
 <div class="container">

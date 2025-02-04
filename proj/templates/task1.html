@@ -23,6 +23,7 @@
             height: 56px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             z-index: 1000;
         }
         header h1 {
@@ -258,12 +259,29 @@
         .code-editor-panel .token.builtin {
             color: #B200B2;
         }
+
+        /* Добавляем стили для кнопки профиля */
+        .profile-link {
+            margin-right: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-link:hover {
+            background-color: white;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
 
     <header>
        <h1 id="h">Личный Кабинет Ученика</h1>
+       <a href="/profile" class="profile-link">Личный кабинет</a>
     </header>
 
     <div class="main-content">
@@ -278,20 +296,19 @@
         </div>
 
         <div class="container">
-            <h1>1. Первый класс</h1>
+            <h1>{{ task.title }}</h1>
 
             <div class="task">
                 <h2>Задача:</h2>
-                <p>Напишите программу, которая принимает два числа и возвращает их сумму.</p>
+                <p>{{ task.task }}</p>
             </div>
 
             <div class="input-output">
                 <label for="input-data">Вводные данные:</label>
-                <pre>2
-3</pre>
+                <pre>{{ task.input_data }}</pre>
 
                 <label for="output-data">Ожидаемые выходные данные:</label>
-                <pre>5</pre>
+                <pre>{{ task.output_data }}</pre>
             </div>
 
             <form action="/upload/1" method="post" enctype="multipart/form-data">

@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import subprocess
 import os
+from database import get_task_by_id
 
 app = Flask(__name__)
 
@@ -16,7 +17,11 @@ def index():
 
 @app.route('/task/<num_task>')
 def task(num_task):
-    return render_template(f'task{num_task}.html', content=None)
+    task_data = get_task_by_id(num_task)
+    if task_data is None:
+        return "Задача не найдена", 404
+
+    return render_template(f'task{num_task}.html', content=None, task=task_data)
 
 
 @app.route('/upload/<num_task>', methods=['POST'])
@@ -51,12 +56,14 @@ def submit_code(num_task):
 
         # Обрабатываем код через существующую функцию
         content = process_file(temp_file_path, num_task)
+        print(content)
 
         # Удаляем временный файл
         if os.path.exists(temp_file_path):
             os.remove(temp_file_path)
 
-        return jsonify({'content': content})
+        # return jsonify({'content': content})
+        return render_template(f'task{num_task}.html', content=content)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -70,7 +77,7 @@ def process_file(file_path, num_task):
     user_input = ""
     answer_correction = True
     content = ""
-    print(file_mas)
+    # print(file_mas)
     for i in range(len(file_mas)):
         if file_mas[i][-1] == "Q":
             user_input = ""
@@ -96,6 +103,11 @@ def process_file(file_path, num_task):
         a = content
         content = f"После прохождения тест-кейса №{a}, была обнаружена ошибка"
     return content
+
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
 
 
 if __name__ == '__main__':
