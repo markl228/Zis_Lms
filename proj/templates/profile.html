@@ -80,9 +80,9 @@
 
     <div class="container">
         <div class="profile">
-            <h2>Добро пожаловать, [Имя Учителя]</h2>
-            <p>Email: [email@example.com]</p>
-            <p>Специальность: [Предмет]</p>
+            <h2>Добро пожаловать, {{ username }}</h2>
+            <p>Email: {{ email }}</p>
+            <p>Специальность: {{ specialty }}</p>
         </div>
 
         <h3>Ваши курсы:</h3>
@@ -91,6 +91,8 @@
             <li>Курс 2: Алгебра</li>
             <li>Курс 3: История искусств</li>
         </ul>
+        
+        <a href="{{ url_for('logout') }}" style="color: #007bff; text-decoration: none;">Выйти</a>
     </div>
 </div>
 

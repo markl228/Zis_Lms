@@ -1,14 +1,18 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session, flash
 import subprocess
 import os
-from database import get_task_by_id
+from database import DB, DB_Task, DB_User
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = 'ваш_секретный_ключ'  # Замените на случайную строку
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+db = DB_Task()
+db_user = DB_User()
 
 @app.route('/')
 def index():
@@ -17,7 +21,7 @@ def index():
 
 @app.route('/task/<num_task>')
 def task(num_task):
-    task_data = get_task_by_id(num_task)
+    task_data = db.get_task_by_id(num_task)
     if task_data is None:
         return "Задача не найдена", 404
 
@@ -105,9 +109,47 @@ def process_file(file_path, num_task):
     return content
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        user = db_user.verify_user(username, password)
+        if user:
+            session['user_id'] = user[0]
+            session['email'] = user[1]
+            session['username'] = user[2]  # Добавляем username в сессию
+            session['role'] = user[3]
+            return redirect(url_for('profile'))
+        else:
+            return render_template('login.html', error='Неверное имя пользователя или пароль')
+    
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
+
 @app.route('/profile')
+@login_required
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html',
+                         username=session.get('username'),
+                         email=session.get('email'),
+                         role=session.get('role'))
 
 
 if __name__ == '__main__':
