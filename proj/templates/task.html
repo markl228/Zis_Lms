@@ -280,19 +280,22 @@
 <body>
 
     <header>
-       <h1 id="h">Личный Кабинет Ученика</h1>
+       <h1 id="h">Задача</h1>
        <a href="/profile" class="profile-link">Личный кабинет</a>
     </header>
 
     <div class="main-content">
         <div class="sidebar">
             <div class="but">
-                <a href="/">Назад</a>
+                <a href="/course/{{ course_id }}">Назад</a>
             </div>
-            <h2>Задачи</h2>
-            <a href="/task/1">Задача 1</a>
-            <a href="/task/2">Задача 2</a>
-            <a href="/task/3">Задача 3</a>
+            <h2>Задачи курса</h2>
+            {% for task_item in course_tasks %}
+            <a href="/course/{{ course_id }}/task/{{ task_item.id }}" 
+               class="{% if task.id == task_item.id %}active{% endif %}">
+                {{ task_item.title }}
+            </a>
+            {% endfor %}
         </div>
 
         <div class="container">

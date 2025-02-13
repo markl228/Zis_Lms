@@ -92,6 +92,14 @@
             <li>Курс 3: История искусств</li>
         </ul>
         
+        {% if session.get('role') == 'admin' %}
+        <div class="teacher-actions">
+            <h3>Инструменты преподавателя:</h3>
+            <a href="{{ url_for('create_task') }}" class="btn">Создать новую задачу</a>
+            <a href="{{ url_for('my_tasks') }}" class="btn">Мои задачи</a>
+        </div>
+        {% endif %}
+        
         <a href="{{ url_for('logout') }}" style="color: #007bff; text-decoration: none;">Выйти</a>
     </div>
 </div>

@@ -97,34 +97,15 @@
 <div class="container">
     <h2>Выберите тему для изучения</h2>
 
-    <form action="/task/1" enctype="multipart/form-data">
-        <button type="submit"><h3>Основы программирования</h3>
-            <p>Изучите базовые концепции программирования, включая переменные, циклы и функции.</p>
+    {% for course in courses %}
+    <a href="/course/{{ course.id }}" class="course-link">
+        <button type="submit">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
         </button>
-    </form>
+    </a>
+    {% endfor %}
 
-    <form action="/task/2" enctype="multipart/form-data">
-        <button type="submit"><h3>Алгебра</h3>
-        <p>Погрузитесь в мир алгебры, решая уравнения и изучая функции.</p>
-        </button>
-    </form>
-
-    <form action="/task/3" enctype="multipart/form-data">
-        <button type="submit"><h3>История искусств</h3>
-        <p>Узнайте о великих художниках и их произведениях через века.</p>
-        </button>
-    </form>
-
-    <div class="topic" onclick="window.location.href='topic4.html'">
-        <h3>Физика</h3>
-        <p>Изучите основные законы физики и их применение в реальной жизни.</p>
-    </div>
-
-    <div class="topic" onclick="window.location.href='topic5.html'">
-        <h3>Биология</h3>
-        <p>Откройте для себя удивительный мир живых организмов и их экосистем.</p>
-    </div>
-</div>
 
 <footer>
     <p>&copy; 2023 Learning Management System. Все права защищены.</p>

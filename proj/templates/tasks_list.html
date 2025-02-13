@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 0 20px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a:hover {
+            background-color: #e7f3fe;
+        }
+
+        .but a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .but a:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+        }
+
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .task-link {
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .task-link:hover {
+            background-color: #f8f9fa;
+        }
+
+        .task-content {
+            padding: 20px 40px;
+        }
+
+        .task-link:last-child {
+            border-bottom: none;
+        }
+
+        .task-title {
+            color: #007bff;
+            /* margin: 0 0 0px 0; */
+            font-size: 1.5em;
+        }
+
+        /* .task-description {
+            color: #666;
+            margin: 0;
+        } */
+
+        .profile-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-link:hover {
+            background-color: white;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Список задач</h1>
+        <a href="/profile" class="profile-link">Личный кабинет</a>
+    </header>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="but">
+                <a href="/">Назад</a>
+            </div>
+            <h2>Курсы</h2>
+            {% for course in courses %}
+            <a href="/course/{{ course.id }}">{{ course.title }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="container">
+            <div class="task-table">
+                {% for task in task_data %}
+                    <a href="/course/{{ course_id }}/task/{{ task.id }}" class="task-link">
+                        <div class="task-content">
+                            <h3 class="task-title">{{ task.title }}</h3>
+                            <!-- <p class="task-description">{{ task.description }}</p> -->
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

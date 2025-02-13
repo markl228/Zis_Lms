@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание задачи</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .test-case {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .add-test-case {
+            background-color: #28a745;
+        }
+        .remove-test-case {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Создание новой задачи</h2>
+        <form method="POST" action="{{ url_for('create_task') }}">
+            <div class="form-group">
+                <label for="title">Название задачи:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание задачи:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            
+            <div id="test-cases">
+                <h3>Тест-кейсы:</h3>
+                <div class="test-case">
+                    <div class="form-group">
+                        <label>Входные данные:</label>
+                        <textarea name="inputs[]" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ожидаемый результат:</label>
+                        <textarea name="outputs[]" required></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" class="add-test-case" onclick="addTestCase()">Добавить тест-кейс</button>
+            <button type="submit">Создать задачу</button>
+        </form>
+    </div>
+
+    <script>
+        function addTestCase() {
+            const testCases = document.getElementById('test-cases');
+            const newTestCase = document.createElement('div');
+            newTestCase.className = 'test-case';
+            newTestCase.innerHTML = `
+                <div class="form-group">
+                    <label>Входные данные:</label>
+                    <textarea name="inputs[]" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Ожидаемый результат:</label>
+                    <textarea name="outputs[]" required></textarea>
+                </div>
+                <button type="button" class="remove-test-case" onclick="removeTestCase(this)">Удалить тест-кейс</button>
+            `;
+            testCases.appendChild(newTestCase);
+        }
+
+        function removeTestCase(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html> 
