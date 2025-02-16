@@ -9,13 +9,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #d6e4e9;
             margin: 0;
             display: flex;
             flex-direction: column;
+            background: linear-gradient(135deg, #d6e4e9, #b8e3ef);
         }
         header {
-            background-color: #007bff;
+            background-color: #047499;
             color: white !important;
             padding: 0px;
             text-align: left;
@@ -25,6 +26,7 @@
             align-items: center;
             justify-content: space-between;
             z-index: 1000;
+            background: linear-gradient(to right, #047499, #0894b8);
         }
         header h1 {
             text-align: left;
@@ -48,26 +50,26 @@
         .sidebar a {
             display: block;
             padding: 10px;
-            color: #007bff;
+            color: #047499;
             text-decoration: none;
             border-radius: 5px;
             margin-bottom: 10px;
             align-self: left;
         }
         .sidebar a:hover {
-            background-color: #e7f3fe;
+            background-color: #9fdcef;
         }
         .but a {
             display: block;
             padding: 10px;
             color: white;
-            background-color: #007bff;
+            background-color: #047499;
             text-decoration: none;
             border-radius: 5px;
             margin-bottom: 10px;
         }
         .but a:hover {
-            background-color: #0056b3;
+            background-color: #0db3d8;
         }
         .container {
             max-width: 600px;
@@ -84,8 +86,9 @@
         .task {
             margin-bottom: 20px;
             padding: 15px;
-            border-left: 5px solid #007bff;
-            background-color: #f9f9f9;
+            border-left: 5px solid #0894b8;
+            background-color: #d2f0fa;
+            background: linear-gradient(to right, #e8f1f4, #d6e4e9);
         }
         .input-output {
             margin-bottom: 20px;
@@ -99,18 +102,20 @@
             margin-top: 10px;
         }
         button {
-            background-color: #007bff;
+            background-color: #047499;
             margin-top: 10px;
-            color: white;
+            color: #ffffff;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             width: 100%;
+            background: linear-gradient(to right, #0894b8, #0db3d8);
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #0db3d8;
+            background: linear-gradient(to right, #0db3d8, #56c8e3);
         }
         pre {
             background-color: #f4f4f4;
@@ -122,14 +127,15 @@
         /* Стили для редактора кода */
         .code-editor-toggle {
             position: relative;
-            background: #007bff;
-            color: white;
+            background: #047499;
+            color: #ffffff;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             z-index: 1000;
             margin-top: 20px;
             width: auto;
+            background: linear-gradient(to right, #0894b8, #0db3d8);
         }
 
         .code-editor-panel {
@@ -263,17 +269,17 @@
         /* Добавляем стили для кнопки профиля */
         .profile-link {
             margin-right: 20px;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             padding: 8px 15px;
-            border: 2px solid white;
+            border: 2px solid #ffffff;
             border-radius: 5px;
             transition: all 0.3s ease;
         }
         
         .profile-link:hover {
-            background-color: white;
-            color: #007bff;
+            background-color: #ffffff;
+            color: #047499;
         }
     </style>
 </head>
@@ -290,9 +296,9 @@
                 <a href="/course/{{ course_id }}">Назад</a>
             </div>
             <h2>Задачи курса</h2>
-            {% for task_item in course_tasks %}
+             {% for task_item in course_tasks %}
             <a href="/course/{{ course_id }}/task/{{ task_item.id }}" 
-               class="{% if task.id == task_item.id %}active{% endif %}">
+               class="{% if task_id == task_item.id %}active{% endif %}">
                 {{ task_item.title }}
             </a>
             {% endfor %}
@@ -314,7 +320,7 @@
                 <pre>{{ task.output_data }}</pre>
             </div>
 
-            <form action="/upload/1" method="post" enctype="multipart/form-data">
+            <form action="/upload/{{ course_id }}/task/{{ task_id }}" method="post" enctype="multipart/form-data">
                 <label for="file">Загрузите файл с решением:</label>
                 <input type="file" name="file" required>
                 <button type="submit">Загрузить</button>

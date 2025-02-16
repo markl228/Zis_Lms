@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: linear-gradient(135deg, #d6e4e9, #b8e3ef);
             margin: 0;
             display: flex;
             flex-direction: column; /* Вертикальное направление для заголовка и контейнера */
         }
         header {
-            background-color: #007bff;
-            color: white;
+            background: linear-gradient(to right, #047499, #0894b8);
+            color: #ffffff;
             padding: 0px 20px 0px;
             margin: 0px 0px 10px;
             text-align: center;
@@ -34,12 +34,12 @@
             display: block;
             margin: 10px 0;
             text-decoration: none;
-            color: #007bff;
+            color: #0894b8;
             padding: 10px;
             border-radius: 5px;
         }
         nav a:hover {
-            background-color: #e7f3fe;
+            background: linear-gradient(to right, #b8e3ef, #9fdcef);
         }
         .container {
             flex-grow: 1; /* Позволяет контейнеру занимать оставшееся пространство */
@@ -56,10 +56,17 @@
             padding: 0;
         }
         .courses li {
-            background-color: #e7f3fe;
+            background: linear-gradient(to right, #9fdcef, #56c8e3);
             margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
+        }
+        .courses li:hover {
+            background: linear-gradient(to right, #56c8e3, #0db3d8);
+        }
+        a[href="{{ url_for('logout') }}"] {
+            background: linear-gradient(to right, #0894b8, #0db3d8);
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
@@ -100,7 +107,7 @@
         </div>
         {% endif %}
         
-        <a href="{{ url_for('logout') }}" style="color: #007bff; text-decoration: none;">Выйти</a>
+        <a href="{{ url_for('logout') }}" style="color: #0a94b8; text-decoration: none;">Выйти</a>
     </div>
 </div>
 
