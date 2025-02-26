@@ -20,8 +20,34 @@ login_required = Auth.login_required
 
 @app.route('/')
 def index():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    user_role = session.get('role')
     courses = db.get_all_courses()
-    return render_template('main_theme.html', courses=courses)
+    
+    if user_role == 'student':
+        # Получаем прогресс студента
+        student_progress = db_user.get_student_progress(session['user_id'])
+        # Получаем уведомления студента
+        notifications = db_user.get_student_notifications(session['user_id'])
+        return render_template('dashboard.html',
+                             courses=courses,
+                             progress=student_progress,
+                             notifications=notifications,
+                             role='student')
+    elif user_role in ['teacher', 'admin']:
+        # Получаем группы преподавателя
+        teacher_groups = db_user.get_teacher_groups(session['user_id'])
+        # Получаем задания на проверку
+        pending_assignments = db_user.get_pending_assignments(session['user_id'])
+        return render_template('dashboard.html',
+                             courses=courses,
+                             groups=teacher_groups,
+                             pending_assignments=pending_assignments,
+                             role='teacher')
+                             
+    return redirect(url_for('login'))
 
 class CourseRoute:
     @staticmethod
@@ -114,7 +140,7 @@ class AuthRouts:
                 session['user_id'] = user[0]
                 session['email'] = user[1]
                 session['role'] = user[2]
-                return redirect(url_for('profile'))
+                return redirect(url_for('index'))
             else:
                 return render_template('login.html', error='Неверное имя пользователя или пароль')
         
@@ -156,7 +182,7 @@ class ProfileRoutes():
             
             if task_id:
                 flash('Задача успешно создана')
-                return redirect(url_for('profile'))
+                return redirect(url_for('.index'))
             else:
                 flash('Ошибка при создании задачи')
         
